@@ -1,4 +1,4 @@
-package com.example;
+package com.example.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
