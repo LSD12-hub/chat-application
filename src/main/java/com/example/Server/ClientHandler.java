@@ -31,6 +31,10 @@ public class ClientHandler implements Runnable{
                 String textMessage = in.readLine();
                 
                 sendToAllOtherUsers(textMessage);
+
+                if (textMessage.equals("bye")) {
+                    break;
+                }
             }
             
         } catch (Exception e) {
@@ -40,8 +44,9 @@ public class ClientHandler implements Runnable{
 
     private void sendToAllOtherUsers(String textMessage) {
         for (ClientHandler clientHandler : clientList){
-            if (this != clientHandler)
-            clientHandler.out.println(username + ">>: " + textMessage);
+            if (this != clientHandler) {
+                clientHandler.out.println(username + ">>: " + textMessage);
+            }
         }
     }
 }
