@@ -13,17 +13,19 @@ import java.util.concurrent.Executors;
  */
 public class ChatServer 
 {
-    static List<ClientHandler> clientList = new ArrayList<>();
-    static ExecutorService pool = Executors.newFixedThreadPool(4);
+    private static List<ClientHandler> clientList = new ArrayList<>();
+    private static ExecutorService pool = Executors.newFixedThreadPool(4);
+    private static ServerSocket serverSocket;
+    private static Socket socket;
 
     public static void main( String[] args )
     {
         try {
-            ServerSocket serverSocket = new ServerSocket(1234);
+            serverSocket = new ServerSocket(1234);
 
             while (clientList.size() < 5) {
                 System.out.println("Waiting for clients to connect");
-                Socket socket = serverSocket.accept();
+                socket = serverSocket.accept();
                 System.out.println(" has connected");
 
                 ClientHandler clientHandler = new ClientHandler(socket, clientList);
@@ -32,7 +34,7 @@ public class ChatServer
                 pool.execute(clientHandler);
             }
         } catch (Exception e) {
-            //TODO: handle exception
+            e.printStackTrace();
         }
     }
 }
