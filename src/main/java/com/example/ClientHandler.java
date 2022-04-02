@@ -9,20 +9,39 @@ import java.util.List;
 
 public class ClientHandler implements Runnable{
 
-    BufferedReader in;
-    PrintWriter out;
-    Socket socket;
-    List<ClientHandler> clientList;
+    private BufferedReader in;
+    private PrintWriter out;
+    private Socket socket;
+    private List<ClientHandler> clientList;
+    private String username;
 
     public ClientHandler(Socket socket, List<ClientHandler> clientList) throws IOException {
         this.socket = socket;
         this.clientList = clientList;
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.out = new PrintWriter(socket.getOutputStream(), true);
+        this.username = in.readLine();
     }
 
     @Override
     public void run() {
-        out.println("");
+        
+        try {
+            while (true) {
+                String textMessage = in.readLine();
+                
+                sendToAllOtherUsers(textMessage);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendToAllOtherUsers(String textMessage) {
+        for (ClientHandler clientHandler : clientList){
+            if (this != clientHandler)
+            clientHandler.out.println(username + ">>: " + textMessage);
+        }
     }
 }
