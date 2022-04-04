@@ -23,7 +23,7 @@ public class ServerConnection implements Runnable{
 
                 System.out.println(output);
 
-                if (output.equals("bye")) {
+                if (output.substring(output.length() - 3, output.length()).equals("bye")) {
                     break;
                 }
             }

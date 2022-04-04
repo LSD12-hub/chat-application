@@ -34,7 +34,6 @@ public class ChatClient {
             out.println(textMessage);
 
             if (textMessage.equals("bye")) {
-                readServerOutput.stop();
                 break;
             }
         }
