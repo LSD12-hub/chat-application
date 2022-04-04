@@ -60,4 +60,8 @@ public class ClientHandler implements Runnable{
     public String toString() {
         return this.username;
     }
+
+    public Socket getSocket() {
+        return this.socket;
+    }
 }

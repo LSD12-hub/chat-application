@@ -19,6 +19,8 @@ public class ChatServer
 
     public static void main( String[] args )
     {
+        new Thread(new Command(clientList)).start();
+
         try {
             ServerSocket serverSocket = new ServerSocket(8080);
 
@@ -31,6 +33,7 @@ public class ChatServer
 
                 pool.execute(clientHandler);
             }
+            serverSocket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

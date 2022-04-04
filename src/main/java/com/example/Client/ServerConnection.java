@@ -12,7 +12,7 @@ public class ServerConnection implements Runnable{
 
     public ServerConnection(Socket socket) throws IOException {
         this.socket = socket;
-        this.out = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        this.out = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
     }
 
     @Override
@@ -20,6 +20,12 @@ public class ServerConnection implements Runnable{
         try {
             while (true) {
                 String output = out.readLine();
+
+                if (!socket.isConnected()) {
+                    System.out.println("[Client] Server has disconnected");
+                    break;
+                }
+                
 
                 System.out.println(output);
             }
