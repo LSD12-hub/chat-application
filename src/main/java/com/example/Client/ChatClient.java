@@ -5,16 +5,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class ChatClient {
     
 
-    public static void main(String[] args) throws UnknownHostException, IOException {
+    public static void main(String[] args) throws IOException {
         
         System.out.println("Waiting for server...");
         
-        Socket socket = new Socket("127.0.0.1",1234);
+        Socket socket = new Socket("127.0.0.1",8080);
 
         System.out.println("conneceted");
 
@@ -33,6 +32,11 @@ public class ChatClient {
             String textMessage = userInput.readLine();
 
             out.println(textMessage);
+
+            if (textMessage.equals("bye")) {
+                readServerOutput.stop();
+                break;
+            }
         }
     }
 }

@@ -21,6 +21,8 @@ public class ClientHandler implements Runnable{
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.out = new PrintWriter(socket.getOutputStream(), true);
         this.username = in.readLine();
+        System.out.println(this.username + " has connected");
+        sendToAllOtherUsers(this.username + " has connected");
     }
 
     @Override
