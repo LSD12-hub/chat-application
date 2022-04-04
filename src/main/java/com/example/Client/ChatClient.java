@@ -23,7 +23,8 @@ public class ChatClient {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         
         System.out.print("Please enter your username: ");
-        out.println(userInput.readLine());
+        String username = userInput.readLine();
+        out.println(username);
 
         Thread readServerOutput = new Thread(serverConnection);
         readServerOutput.start();
@@ -34,7 +35,8 @@ public class ChatClient {
             out.println(textMessage);
 
             if (textMessage.equals("bye")) {
-                break;
+                readServerOutput.stop();
+                System.exit(0);
             }
         }
     }

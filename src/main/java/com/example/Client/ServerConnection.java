@@ -22,10 +22,6 @@ public class ServerConnection implements Runnable{
                 String output = out.readLine();
 
                 System.out.println(output);
-
-                if (output.substring(output.length() - 3, output.length()).equals("bye")) {
-                    break;
-                }
             }
         } catch (Exception e) {
             e.printStackTrace();

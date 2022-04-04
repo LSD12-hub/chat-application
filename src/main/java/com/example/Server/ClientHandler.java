@@ -22,7 +22,7 @@ public class ClientHandler implements Runnable{
         this.out = new PrintWriter(socket.getOutputStream(), true);
         this.username = in.readLine();
         System.out.println(this.username + " has connected");
-        sendToAllOtherUsers(this.username + " has connected");
+        sendToAllOtherUsers("[SERVER] " + this.username + " has joined the chat");
     }
 
     @Override
@@ -35,6 +35,10 @@ public class ClientHandler implements Runnable{
                 sendToAllOtherUsers(textMessage);
 
                 if (textMessage.equals("bye")) {
+                    System.out.println(this.username + " has disconnected");
+                    sendToAllOtherUsers("[SERVER] " + this.username + " has left the chat");
+                    socket.close();
+                    this.clientList.remove(this);
                     break;
                 }
             }
@@ -47,8 +51,13 @@ public class ClientHandler implements Runnable{
     private void sendToAllOtherUsers(String textMessage) {
         for (ClientHandler clientHandler : clientList){
             if (this != clientHandler) {
-                clientHandler.out.println(username + ">>: " + textMessage);
+                clientHandler.out.println(username + " >>: " + textMessage);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.username;
     }
 }
