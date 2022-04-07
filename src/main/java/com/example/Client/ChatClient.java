@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ChatClient {
     
@@ -12,8 +13,15 @@ public class ChatClient {
     public static void main(String[] args) throws IOException {
         
         System.out.println("Waiting for server...");
+
+        System.out.print("Enter ip address: ");
+
+        String output = new Scanner(System.in).nextLine();
+        if (output.length() == 0){
+            return; // validate ip address
+        }
         
-        Socket socket = new Socket("127.0.0.1",8080);
+        Socket socket = new Socket(output ,8080);
 
         System.out.println("conneceted");
 
